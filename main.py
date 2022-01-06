@@ -114,7 +114,7 @@ def displayIndividualItem(id):
 
         # If the item is not found in MongoDB, an error is logged and error page is rendered
         if mongoengineObject is None:
-            logging.error("The user has tried to display item that is not available, item id doesn't correspond to an item Id: '", id "' was not found")
+            logging.error("The user has tried to display item that is not available, item id doesn't correspond to an item Id: '", id ,"' was not found")    
             return render_template("error.html")
 
         ItemObject = {
