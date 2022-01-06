@@ -6,22 +6,24 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Image Repo</a>
+            <a class="navbar-brand" href="#">Inventory List</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active justify-content-right">
-                    <a class="nav-link " href="/add">Add Image</a>
+                    <a class="nav-link " href="/add">Add Item</a>
                 </li>
             </ul>
         </nav>
         <div class="container">
             <div style="text-align: center; margin: 3%;"> 
-                <h5 >  {{image['title']}}</h5>
-                <img src= "data:;base64,{{ image['image'] }}" style="max-width: 1024px;" >
-                <p > Description: {{image['description']}}</p>
-                <form style ="display :inline" method='POST' action="/delete/{{image['id']}}">
+                <h5 >  {{item['title']}}</h5>
+                <img src= "data:;base64,{{ item['image'] }}" style="max-width: 1024px;" >
+                <p > Description: {{item['description']}}</p>
+                <h6> {{item['price']}}</p>
+                <h6> {{item['qunatity']}}</p>
+                <form style ="display :inline" method='POST' action="/delete/{{item['id']}}">
                     <button class="btn btn-danger" style ="display :inline" type="submit">Delete</button>
                 </form>
                     <a type="button" class="btn btn-secondary" style ="display :inline; color: white; align: right" href="/">Back</a>

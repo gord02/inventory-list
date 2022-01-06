@@ -88,7 +88,7 @@ def addItemToDB():
         # creates a document for item in collection item
         item = Item(name=searchValue)
         item.description = description
-        item.price = price
+        item.price = float(price)
         item.quantity = quantity
 
         # if empty use default blank photo

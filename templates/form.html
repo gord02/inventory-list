@@ -5,13 +5,13 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Image Repo</a>
+            <a class="navbar-brand" href="#">Inventory List</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active justify-content-right">
-                    <a class="nav-link " href="/add">Add Image</a>
+                    <a class="nav-link " href="/add">Add Item</a>
                 </li>
             </ul>
         </nav>
@@ -21,11 +21,11 @@
                     <label for="Search value label" id="search value label" >Search for image of: </label>
                     <input style="margin: 3px;" type="text" class="form-control" name="searchValue"id="searchValue" aria-describedby="search value" placeholder= "Enter title of item"</input>
                     <input style="margin: 3px;" type="text" class="form-control" name="description"id="description" aria-describedby="description of item" placeholder= "Enter the description of the item"</input>
-                    <input id="number" type="number" name="price" placeholder= "Enter price of item"></input>
-                    <input id="number" type="number" name="qunatity" placeholder= "Enter qunatity of item"></input>
+                    <input id="number" type="number" step="0.01" name="price" placeholder= "Enter price of item"></input>
+                    <input id="number" type="number" name="quantity" placeholder= "Enter quantity of item"></input>
                     <div class="form-group">
                         <label for="Search value label" id="search value label" style=" margin-bottom: 0px;">Upload jpg or png files of your item: </label>
-                        <input type="file" id="file" name="file"  accept="image/*" style="display: block; margin:1%; margin-left: 0px;"><input type="submit">
+                        <input type="file" id="file" name="file"  accept="item/*" style="display: block; margin:1%; margin-left: 0px;"><input type="submit">
                     </div>
                 </form>
             </div> 
