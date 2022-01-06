@@ -54,6 +54,7 @@ def search():
     items = list()
     if request.method == "POST":
         searchValue = request.form["searchValue"]
+        print("searchValue: ", searchValue)
         mongoengineObjects = Item.objects.search_text(searchValue)
 
         for obj in mongoengineObjects:

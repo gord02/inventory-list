@@ -18,7 +18,13 @@ class Item(Document):
     price = FloatField()
     quantity = IntField(required=True)
     photo = FileField()
-    meta = {"strict": False}
+    meta = {
+            'indexes': [
+            {'fields': ['$name', "$description", '$price'],
+            'default_language': 'english',
+            'weights': {'name': 3, 'description': 2, 'price': 1}
+        }]
+   }
 
 def addItem(name, description, price, quantity):
     """

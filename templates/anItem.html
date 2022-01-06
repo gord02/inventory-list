@@ -18,11 +18,11 @@
         </nav>
         <div class="container">
             <div style="text-align: center; margin: 3%;"> 
-                <h5 >  {{item['title']}}</h5>
-                <img src= "data:;base64,{{ item['image'] }}" style="max-width: 1024px;" >
+                <h5> {{item['name']}}</h5>
+                <img src= "data:;base64,{{ item['image'] }}" style="max-width: 1024px; width:200px; margin: 0px" >
                 <p > Description: {{item['description']}}</p>
-                <h6> {{item['price']}}</p>
-                <h6> {{item['qunatity']}}</p>
+                <h6> ${{item['price']}}</p>
+                <h6> Amount in Stock: {{item['quantity']}}</p>
                 <form style ="display :inline" method='POST' action="/delete/{{item['id']}}">
                     <button class="btn btn-danger" style ="display :inline" type="submit">Delete</button>
                 </form>
