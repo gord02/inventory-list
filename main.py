@@ -31,20 +31,20 @@ def displayAllItems():
             "description": obj.description,
             "price": obj.price,
             "quantity": obj.quantity,
-            "item": obj.photo.read(),  # Reads item as binary 
+            "image": obj.photo.read(),  # Reads item as binary 
             "id": obj.id
         }
         # Allows only type bytes to be added to item list
-        if(type(ItemObject['item']) is bytes):
+        if(type(ItemObject['image']) is bytes):
             # Converts bytes into base64 to be displayed in html
-            ItemObject['item'] = b64encode(ItemObject['item']).decode("utf-8")
+            ItemObject['image'] = b64encode(ItemObject['image']).decode("utf-8")
             # Pushes displayable items into list
             items.append(ItemObject)
         else:
             logging.error( "this item is not of type bytes", ItemObject)
            
     # Sends list of items to frontend for rendering
-    return render_template("allitems.html", items=items)
+    return render_template("allItems.html", items=items)
 
 @app.route("/", methods=['POST'])
 def search():
@@ -54,7 +54,7 @@ def search():
     items = list()
     if request.method == "POST":
         searchValue = request.form["searchValue"]
-        mongoengineObjects = item.objects.search_text(searchValue)
+        mongoengineObjects = Item.objects.search_text(searchValue)
 
         for obj in mongoengineObjects:
             ItemObject = {
@@ -62,11 +62,11 @@ def search():
                 "description": obj.description,
                 "price": obj.price,
                 "quantity": obj.quantity,
-                "item": obj.photo.read(),   
+                "image": obj.photo.read(),   
                 "id": obj.id
             }
-            if(type(ItemObject['item']) is bytes):
-                ItemObject['item'] = b64encode(ItemObject['item']).decode("utf-8")
+            if(type(ItemObject['image']) is bytes):
+                ItemObject['image'] = b64encode(ItemObject['image']).decode("utf-8")
                 items.append(ItemObject)
             else:
                 logging.error("this item is not of type bytes", ItemObject)
@@ -93,7 +93,9 @@ def addItemToDB():
 
         # if empty use default blank photo
         item.photo.put(file, filename=(searchValue+".jpg"))                                 # !!!!!!
+
         item.save()
+
         return redirect("/")
     return render_template("form.html")
 
@@ -122,10 +124,10 @@ def displayIndividualItem(id):
             "description": mongoengineObject.description,
             "price": mongoengineObject.price,
             "quantity": mongoengineObject.quantity,
-            "item": mongoengineObject.photo.read(), 
+            "image": mongoengineObject.photo.read(), 
             "id": str(mongoengineObject.id)
         }
-        ItemObject['item'] = b64encode(ItemObject['item']).decode("utf-8")
+        ItemObject['image'] = b64encode(ItemObject['image']).decode("utf-8")
 
         # Adds the item to Redis so that the next time it is retrived in this route it will be found in Redis which is a faster process than MongoDB
         r.hmset(id, ItemObject)
@@ -136,7 +138,7 @@ def displayIndividualItem(id):
         item = decode_redis(redisValue)
         imgObjectToSendToHtml = item
 
-    return render_template("anitem.html", item=imgObjectToSendToHtml)
+    return render_template("anItem.html", item=imgObjectToSendToHtml)
 
 @app.route("/delete/<id>", methods=['POST'])
 def delete(id):
