@@ -26,7 +26,6 @@
 
         <table class="table">
             <tr>
-              <th scope="col">Photo</th>
               <th scope="col">Name</th>
               <th scope="col">Description</th>
               <th scope="col">Price</th>
@@ -35,7 +34,6 @@
             </tr>
             {% for item in items %}
                 <tr>
-                    <td> <img src= "data:;base64,{{ item['image'] }}" style="width:25px; height: 20px;"> </td>
                     <td> <h5 style="width:40px; margin: 0px;"> {{item['name']}}</h5> </td>
                     <td> <p>{{item['description']}} </p> </td>
                     <td> <p> ${{item['price']}} </p> </td>

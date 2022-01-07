@@ -1,9 +1,8 @@
 import logging
-from base64 import b64encode
 
 import redis
 from mongoengine import connect
-from flask import (Flask, render_template, request, send_file, redirect)
+from flask import (Flask, render_template, request, redirect)
 
 from schema import Item
 from decoder import decode_redis
@@ -31,17 +30,9 @@ def displayAllItems():
             "description": obj.description,
             "price": obj.price,
             "quantity": obj.quantity,
-            "image": obj.photo.read(),  # Reads item as binary 
             "id": obj.id
         }
-        # Allows only type bytes to be added to item list
-        if(type(ItemObject['image']) is bytes):
-            # Converts bytes into base64 to be displayed in html
-            ItemObject['image'] = b64encode(ItemObject['image']).decode("utf-8")
-            # Pushes displayable items into list
-            items.append(ItemObject)
-        else:
-            logging.error( "this item is not of type bytes", ItemObject)
+        items.append(ItemObject)
            
     # Sends list of items to frontend for rendering
     return render_template("allItems.html", items=items)
@@ -54,7 +45,6 @@ def search():
     items = list()
     if request.method == "POST":
         searchValue = request.form["searchValue"]
-        print("searchValue: ", searchValue)
         mongoengineObjects = Item.objects.search_text(searchValue)
 
         for obj in mongoengineObjects:
@@ -63,14 +53,9 @@ def search():
                 "description": obj.description,
                 "price": obj.price,
                 "quantity": obj.quantity,
-                "image": obj.photo.read(),   
                 "id": obj.id
             }
-            if(type(ItemObject['image']) is bytes):
-                ItemObject['image'] = b64encode(ItemObject['image']).decode("utf-8")
-                items.append(ItemObject)
-            else:
-                logging.error("this item is not of type bytes", ItemObject)
+            items.append(ItemObject)
 
     return render_template("show.html", items=items)
 
@@ -84,16 +69,12 @@ def addItemToDB():
         description = request.form["description"]
         price = request.form["price"]
         quantity = request.form["quantity"]
-        file = request.files["file"].read()
 
         # creates a document for item in collection item
         item = Item(name=searchValue)
         item.description = description
         item.price = float(price)
         item.quantity = quantity
-
-        # if empty use default blank photo
-        item.photo.put(file, filename=(searchValue+".jpg"))                                 # !!!!!!
 
         item.save()
 
@@ -125,21 +106,19 @@ def displayIndividualItem(id):
             "description": mongoengineObject.description,
             "price": mongoengineObject.price,
             "quantity": mongoengineObject.quantity,
-            "image": mongoengineObject.photo.read(), 
             "id": str(mongoengineObject.id)
         }
-        ItemObject['image'] = b64encode(ItemObject['image']).decode("utf-8")
 
         # Adds the item to Redis so that the next time it is retrived in this route it will be found in Redis which is a faster process than MongoDB
         r.hmset(id, ItemObject)
 
-        imgObjectToSendToHtml = ItemObject
+        itemObjectToSendToHtml = ItemObject
     else:
         # If the item was found in Redis it will be sent to frontend
         item = decode_redis(redisValue)
-        imgObjectToSendToHtml = item
+        itemObjectToSendToHtml = item
 
-    return render_template("anItem.html", item=imgObjectToSendToHtml)
+    return render_template("anItem.html", item=itemObjectToSendToHtml)
 
 @app.route("/item/<id>/edit",  methods=['GET','POST'])
 def editItem(id):
@@ -163,7 +142,6 @@ def editItem(id):
             "description": mongoengineObject.description,
             "price": mongoengineObject.price,
             "quantity": mongoengineObject.quantity,
-            "image": mongoengineObject.photo.read(), 
             "id": str(mongoengineObject.id)
         }  
         r.hmset(id, ItemObject)

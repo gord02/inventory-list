@@ -11,7 +11,10 @@ For this application there are three distinct layers: the frontend which is resp
 At the index route of this application, there will be a search bar, as well as a table that should be empty that displays all inventory items stored in MongoDB database. Inputting a value into the search bar allows you to filter the items in the database based on a string search functionality found in MongoDB. In the navbar at the very top of the application there is a “Home” button which is the index route that displays all items in the database, and there will also be a button for “add Item" which allows you to add an item to the database.
 
 ### How to Run Project
-You will need to have the correct applications installed which can be found in the Conda txt file provided with the code. You will also need to have the Flask server running to use this application using the command "python main.py" in the terminal. In another terminal, you also need the Redis server running which is started using the command "redis-server". 
+You will need to have the correct applications and technologies installed which can be found in the Conda txt file provided with the code. After everything is correctly installed you can begin running the necessary servers. 
+1. You will need to have the Flask server running to use this application, which can be done using the command "python main.py" in the terminal.
+2. In another terminal, you also need the Redis server running which is started using the command "redis-server". To make sure this server is running correctly use the command "redis-cli" and a valid port number will appear if the server is running, if not it will say "Could not connect..." 
+3. Finally, you will need the mongoDB client running either in your terminal or in the background of your machine in order to ensure that things are correctly begin added to and retrieved from the database. You will now this is working correctly if the mongo shell can be opened in another terminal
 
 ### Redis Caching Layer
 I decided to include a Redis caching layer in the backend project because I knew Redis could greatly improve the speed at which inventory items would be retrieved from the backend. 
