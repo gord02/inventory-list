@@ -130,22 +130,24 @@ def editItem(id):
     mongoengineObject = Item.objects(id=id).first()
     if request.method == "POST":
         r = redis.Redis(host='localhost', port=6379, db=0)
-        for field in request.form:
-            if request.form[field] != mongoengineObject[field]:
-                print("this field is being changed: ", field)
-                # update
-                if(field == "price"):
-                    mongoengineObject.update(**{ field: int(float(request.form[field])) }) 
-                mongoengineObject.update(**{ field: request.form[field] })
-        ItemObject = {
+        itemObject = {
             "name": mongoengineObject.name, 
             "description": mongoengineObject.description,
             "price": mongoengineObject.price,
             "quantity": mongoengineObject.quantity,
             "id": str(mongoengineObject.id)
         }  
-        r.hmset(id, ItemObject)
-        return render_template("anItem.html", item=mongoengineObject)
+        for field in request.form:
+            if request.form[field] != mongoengineObject[field]:
+                if(field == "price"):
+                    # update item object
+                        mongoengineObject.update(**{ field: float(request.form[field])}) 
+                else:    
+                    mongoengineObject.update(**{ field: request.form[field] })
+                itemObject[field] = request.form[field]
+                
+        r.hmset(id, itemObject)
+        return render_template("anItem.html", item=itemObject)
 
     return render_template("editItem.html", item=mongoengineObject)
 
