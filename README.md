@@ -10,7 +10,7 @@ For this application there are three distinct layers: the frontend which is resp
 ### How The Project Works
 At the index route of this application, there will be a search bar, as well as a table that should be empty that displays all inventory items stored in MongoDB database. Inputting a value into the search bar allows you to filter the items in the database based on a string search functionality found in MongoDB. In the navbar at the very top of the application there is a “Home” button which is the index route that displays all items in the database, and there will also be a button for “add Item" which allows you to add an item to the database.
 
-### How to Start Project
+### How to Run Project
 You will need to have the correct applications installed which can be found in the Conda txt file provided with the code. You will also need to have the Flask server running to use this application using the command "python main.py" in the terminal. In another terminal, you also need the Redis server running which is started using the command "redis-server". 
 
 ### Redis Caching Layer
