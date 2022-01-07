@@ -5,7 +5,7 @@ An inventory list application that uses restful routing and other backend engine
 
 ### Project Structure
 For this application there are three distinct layers: the frontend which is responsible for rendering the inventory item list, the backend which is responsible for server side logic, and data storage used to save and retrieve inventory item data.
-![Layers of App](docs/appLayers.PNG)
+![Layers of App](docs/appLayers.png)
 
 ### How The Project Works
 At the index route of this application, there will be a search bar, as well as a table that should be empty that displays all inventory items stored in MongoDB database. Inputting a value into the search bar allows you to filter the items in the database based on a string search functionality found in MongoDB. In the navbar at the very top of the application there is a “Home” button which is the index route that displays all items in the database, and there will also be a button for “add Item" which allows you to add an item to the database.
