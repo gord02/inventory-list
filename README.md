@@ -14,7 +14,7 @@ At the index route of this application, there will be a search bar, as well as a
 You will need to have the correct applications and technologies installed which can be downloaded using the "requirements.txt" file provided with the code. You will need to create an environment from the text file. After everything is correctly installed you can begin running the necessary servers. 
 1. You will need to have the Flask server running to use this application, which can be done using the command "python main.py" in the terminal.
 2. In another terminal, you also need the Redis server running which is started using the command "redis-server". To make sure this server is running correctly use the command "redis-cli" and a valid port number will appear if the server is running, if not it will say "Could not connect..." 
-3. Finally, you will need the mongoDB client running either in your terminal or in the background of your machine in order to ensure that things are correctly begin added to and retrieved from the database. You will now this is working correctly if the mongo shell can be opened in another terminal
+3. Finally, you will need the mongoDB client running either in your terminal or in the background of your machine in order to ensure that things are correctly begin added to and retrieved from the database. You will know this is working correctly if the mongo shell can be opened in another terminal.
 
 ### Redis Caching Layer
 I decided to include a Redis caching layer in the backend project because I knew Redis could greatly improve the speed at which inventory items would be retrieved from the backend. 
