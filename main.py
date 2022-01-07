@@ -141,6 +141,36 @@ def displayIndividualItem(id):
 
     return render_template("anItem.html", item=imgObjectToSendToHtml)
 
+@app.route("/item/<id>/edit",  methods=['GET','POST'])
+def editItem(id):
+    """
+    Route for editing item based on id
+
+    id: string -- id of item to be displayed in database
+    """
+    mongoengineObject = Item.objects(id=id).first()
+    if request.method == "POST":
+        r = redis.Redis(host='localhost', port=6379, db=0)
+        for field in request.form:
+            if request.form[field] != mongoengineObject[field]:
+                print("this field is being changed: ", field)
+                # update
+                if(field == "price"):
+                    mongoengineObject.update(**{ field: int(float(request.form[field])) }) 
+                mongoengineObject.update(**{ field: request.form[field] })
+        ItemObject = {
+            "name": mongoengineObject.name, 
+            "description": mongoengineObject.description,
+            "price": mongoengineObject.price,
+            "quantity": mongoengineObject.quantity,
+            "image": mongoengineObject.photo.read(), 
+            "id": str(mongoengineObject.id)
+        }  
+        r.hmset(id, ItemObject)
+        return render_template("anItem.html", item=mongoengineObject)
+
+    return render_template("editItem.html", item=mongoengineObject)
+
 @app.route("/delete/<id>", methods=['POST'])
 def delete(id):
     """

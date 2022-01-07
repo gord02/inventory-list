@@ -23,6 +23,7 @@
                 <p > Description: {{item['description']}}</p>
                 <h6> ${{item['price']}}</p>
                 <h6> Amount in Stock: {{item['quantity']}}</p>
+                <a type="button" class="btn btn-secondary" style ="display :inline; color: white; align: right" href="/item/{{item['id']}}/edit">Edit</a>
                 <form style ="display :inline" method='POST' action="/delete/{{item['id']}}">
                     <button class="btn btn-danger" style ="display :inline" type="submit">Delete</button>
                 </form>

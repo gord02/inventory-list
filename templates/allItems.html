@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>HTML img Tag</title>
+        <title>Inventory List</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Inventory List</a>
+            <a class="navbar-brand" href="/">Inventory List</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -17,9 +17,9 @@
             </ul>
         </nav>
         <nav class="navbar navbar-light bg-light ">
-                <label style= "display: block;" >Search for Item of: </label>
+                <label style= "display: block;" >Filter Through Inventory List </label>
             <form method='POST' action="/" class="form-inline">
-                    <input style="width: 1150px;" type="text" class="form-control" name="searchValue"id="searchValue" aria-describedby="search value" placeholder= "Enter title of item to search for"</input>
+                    <input style="width: 1150px;" type="text" class="form-control" name="searchValue"id="searchValue" aria-describedby="search value" placeholder= "Enter name of items to filter for"</input>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </nav>
